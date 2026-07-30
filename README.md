@@ -2,7 +2,7 @@
 
 Oxlint (and ESLint-compatible) plugin that enforces [AWS AppSync JavaScript runtime restrictions](https://docs.aws.amazon.com/appsync/latest/devguide/supported-features.html).
 
-Use it to catch unsupported syntax in AppSync resolver code before deployment. See [docs/code-generation-appsync.md](docs/code-generation-appsync.md) for the project-specific summary of limitations.
+Use it to catch unsupported syntax in AppSync resolver code before deployment.
 
 ## Install
 
@@ -71,29 +71,37 @@ export default [
 
 ## Rules
 
-| Rule                            | Description                                                                                      |
-| ------------------------------- | ------------------------------------------------------------------------------------------------ |
-| `appsync/no-global-constructor` | Disallow global constructor calls (`String()`, `Number()`, `Boolean()`, `Date()`, etc.)          |
-| `appsync/no-async-await`        | Disallow `async`/`await` and async functions                                                     |
-| `appsync/no-classes`            | Disallow `class` declarations and expressions                                                    |
-| `appsync/no-instanceof`         | Disallow `instanceof`                                                                            |
-| `appsync/no-for-loop`           | Disallow C-style `for` loops (`for-in` / `for-of` allowed)                                       |
-| `appsync/no-while`              | Disallow `while` loops                                                                           |
-| `appsync/no-do-while`           | Disallow `do-while` loops                                                                        |
-| `appsync/no-try`                | Disallow `try`/`catch`/`finally`                                                                 |
-| `appsync/no-throw`              | Disallow `throw`                                                                                 |
-| `appsync/no-continue`           | Disallow `continue`                                                                              |
-| `appsync/no-labeled-statement`  | Disallow labeled statements                                                                      |
-| `appsync/no-new`                | Disallow the `new` operator                                                                      |
-| `appsync/no-generators`         | Disallow generator functions                                                                     |
-| `appsync/no-this`               | Disallow `this`                                                                                  |
-| `appsync/no-update-operators`   | Disallow `++` and `--`                                                                           |
-| `appsync/no-bitwise-not`        | Disallow bitwise NOT (`~`)                                                                       |
-| `appsync/no-in-operator`        | Disallow `in` (use `Object.hasOwn`)                                                              |
-| `appsync/no-function-arguments` | Disallow passing function references as call arguments (inline arrow callbacks are allowed)      |
-| `appsync/no-appsync-globals`    | Disallow AppSync-only globals (`util`, `extensions`, `runtime`) — opt-in, included in `portable` |
+| Rule                            | Description                                                                                                                                                        |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `appsync/no-global-constructor` | Disallow global constructor calls (`String()`, `Number()`, `Boolean()`, `Date()`, etc.)                                                                            |
+| `appsync/no-async-await`        | Disallow `async`/`await` and async functions                                                                                                                       |
+| `appsync/no-classes`            | Disallow `class` declarations and expressions                                                                                                                      |
+| `appsync/no-instanceof`         | Disallow `instanceof`                                                                                                                                              |
+| `appsync/no-for-loop`           | Disallow C-style `for` loops (`for-in` / `for-of` allowed)                                                                                                         |
+| `appsync/no-while`              | Disallow `while` loops                                                                                                                                             |
+| `appsync/no-do-while`           | Disallow `do-while` loops                                                                                                                                          |
+| `appsync/no-try`                | Disallow `try`/`catch`/`finally`                                                                                                                                   |
+| `appsync/no-throw`              | Disallow `throw`                                                                                                                                                   |
+| `appsync/no-continue`           | Disallow `continue`                                                                                                                                                |
+| `appsync/no-labeled-statement`  | Disallow labeled statements                                                                                                                                        |
+| `appsync/no-new`                | Disallow the `new` operator                                                                                                                                        |
+| `appsync/no-generators`         | Disallow generator functions                                                                                                                                       |
+| `appsync/no-this`               | Disallow `this`                                                                                                                                                    |
+| `appsync/no-update-operators`   | Disallow `++` and `--`                                                                                                                                             |
+| `appsync/no-bitwise-not`        | Disallow bitwise NOT (`~`)                                                                                                                                         |
+| `appsync/no-in-operator`        | Disallow `in` (use `Object.hasOwn`)                                                                                                                                |
+| `appsync/no-function-arguments` | Disallow passing functions as call arguments (parity with AWS `no-function-passing`; inline arrows allowed only on allowlisted Array methods like `map`, `filter`) |
+| `appsync/no-appsync-globals`    | Disallow AppSync-only globals (`util`, `extensions`, `runtime`) — opt-in, included in `portable`                                                                   |
 
 ## Migration
+
+### 0.3.0 → 0.3.1
+
+`appsync/no-function-arguments` now matches AWS `no-function-passing` more closely:
+
+- Inline arrow functions are allowed only on allowlisted `Array` methods (`map`, `filter`, `find`, `some`, `every`, `reduce`, and similar).
+- `Array.prototype.sort()` with a comparator (inline or by reference) is reported.
+- Passing arrow functions to non-allowlisted calls (e.g. `run(() => 1)`) is reported.
 
 ### 0.1.x → 0.2.0
 
@@ -101,17 +109,18 @@ export default [
 
 ## Development
 
+Requires [Bun](https://bun.sh/).
+
 ```bash
-npm install
-npm run build
-npm test
+bun install
+bun run build
+bun test
 ```
 
 ## References
 
 - [Writing Oxlint JS plugins](https://oxc.rs/docs/guide/usage/linter/writing-js-plugins.html)
 - [AWS AppSync supported runtime features](https://docs.aws.amazon.com/appsync/latest/devguide/supported-features.html)
-- [Project AppSync code generation rules](docs/code-generation-appsync.md)
 
 ## License
 

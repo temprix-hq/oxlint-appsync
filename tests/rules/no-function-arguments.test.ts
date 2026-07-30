@@ -6,7 +6,7 @@ runAppsyncRuleTests("no-function-arguments", rule, {
     "process(value);",
     "items.map((item) => item);",
     "items.some((i) => i.startsWith('team/createdBy/'));",
-    "run(() => 1);",
+    "items.filter((x) => x.active);",
     "function transform(items) { return items; }",
   ],
   invalid: [
@@ -24,6 +24,28 @@ runAppsyncRuleTests("no-function-arguments", rule, {
     },
     {
       code: "const handler = () => 1; run(handler);",
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: "run(() => 1);",
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: "items.sort((a, b) => a - b);",
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: [
+        "updated.sort((left, right) => {",
+        "  if (left.releasedAt < right.releasedAt) {",
+        "    return -1;",
+        "  }",
+        "  if (left.releasedAt > right.releasedAt) {",
+        "    return 1;",
+        "  }",
+        "  return 0;",
+        "});",
+      ].join("\n"),
       errors: [{ messageId: "default" }],
     },
   ],

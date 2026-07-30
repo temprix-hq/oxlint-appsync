@@ -1,8 +1,8 @@
-import type { Rule } from "eslint";
+import type { Context, ESTree, Scope } from "@oxlint/plugins";
 import { APPSYNC_GLOBAL_NAMES } from "./appsync-globals.js";
 import { defineAppsyncRule } from "./types.js";
 
-function isBindingPosition(node: Rule.Node): boolean {
+function isBindingPosition(node: ESTree.Node): boolean {
   const parent = node.parent;
   if (!parent) {
     return false;
@@ -32,7 +32,7 @@ function isBindingPosition(node: Rule.Node): boolean {
   return false;
 }
 
-function isNonReferencePosition(node: Rule.Node): boolean {
+function isNonReferencePosition(node: ESTree.Node): boolean {
   const parent = node.parent;
   if (!parent) {
     return false;
@@ -54,10 +54,12 @@ function isNonReferencePosition(node: Rule.Node): boolean {
 }
 
 function hasLocalBinding(
-  node: Rule.Node & { type: "Identifier"; name: string },
-  context: Rule.RuleContext,
+  node: { name: string },
+  context: Context,
 ): boolean {
-  let scope: Rule.Scope.Scope | null = context.sourceCode.getScope(node);
+  let scope: Scope | null = context.sourceCode.getScope(
+    node as ESTree.IdentifierReference,
+  );
   while (scope) {
     const variable = scope.set.get(node.name);
     if (variable && variable.defs.length > 0) {

@@ -33,5 +33,6 @@ export function handler() {
   const hasKey = "key" in {};
   const project = (item) => item;
   [ 1 ].map(project);
+  [ { releasedAt: 1 } ].sort((left, right) => left.releasedAt - right.releasedAt);
   return { value, load, Example, isArray, created, gen, self, count, inverted, hasKey };
 }
