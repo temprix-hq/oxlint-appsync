@@ -1,6 +1,6 @@
 {
   "name": "oxlint-appsync",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Oxlint plugin that enforces AWS AppSync JavaScript runtime restrictions",
   "type": "module",
   "license": "MIT",
@@ -31,11 +31,13 @@
   },
   "scripts": {
     "build": "tsdown",
-    "prepublishOnly": "npm test",
-    "test": "npm run build && vitest run",
+    "prepublishOnly": "bun run test",
+    "test": "bun run build && vitest run",
     "test:unit": "vitest run tests/rules",
-    "lint": "oxlint src tests/helpers tests/smoke.test.ts vitest.config.ts tsdown.config.ts"
+    "lint": "oxlint src tests/helpers tests/smoke.test.ts vitest.config.ts tsdown.config.ts",
+    "typecheck": "tsc --noEmit"
   },
+  "packageManager": "bun@1.3.12",
   "dependencies": {
     "@oxlint/plugins": "^1.42.0"
   },

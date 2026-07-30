@@ -1,9 +1,6 @@
-import type { Rule } from "eslint";
+import type { CreateOnceRule } from "@oxlint/plugins";
 
-export type AppsyncRuleModule = {
-  meta: Rule.RuleMetaData;
-  createOnce: (context: Rule.RuleContext) => Rule.RuleListener;
-};
+export type AppsyncRuleModule = CreateOnceRule;
 
 export function defineAppsyncRule(rule: AppsyncRuleModule): AppsyncRuleModule {
   return rule;
