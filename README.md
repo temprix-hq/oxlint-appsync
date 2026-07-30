@@ -22,11 +22,17 @@ Copy [oxlintrc.example.json](oxlintrc.example.json) to `.oxlintrc.json` in your 
 
 ```ts
 import { defineConfig } from "oxlint";
-import plugin, { recommended } from "oxlint-appsync";
+import plugin, { portable, recommended } from "oxlint-appsync";
 
 export default defineConfig({
   jsPlugins: [plugin],
   rules: recommended,
+  overrides: [
+    {
+      files: ["src/shared/**/*.js"],
+      rules: portable,
+    },
+  ],
 });
 ```
 
@@ -42,38 +48,50 @@ The plugin uses Oxlint's `createOnce` API wrapped with `eslintCompatPlugin`, so 
 
 ```js
 import appsync from "oxlint-appsync";
-import { recommended } from "oxlint-appsync";
+import { portable, recommended } from "oxlint-appsync";
 
 export default [
   {
     plugins: { appsync },
     rules: recommended,
   },
+  {
+    files: ["src/shared/**/*.js"],
+    rules: portable,
+  },
 ];
 ```
 
+## Config presets
+
+| Preset        | Use for                                                                                                           |
+| ------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `recommended` | AppSync resolver entry points — all syntax rules enabled                                                          |
+| `portable`    | Shared modules that must run in AppSync and other runtimes (e.g. Lambda) — syntax rules plus `no-appsync-globals` |
+
 ## Rules
 
-| Rule | Description |
-| --- | --- |
-| `appsync/no-global-constructor` | Disallow global constructor calls (`String()`, `Number()`, `Boolean()`, `Date()`, etc.) |
-| `appsync/no-async-await` | Disallow `async`/`await` and async functions |
-| `appsync/no-classes` | Disallow `class` declarations and expressions |
-| `appsync/no-instanceof` | Disallow `instanceof` |
-| `appsync/no-for-loop` | Disallow C-style `for` loops (`for-in` / `for-of` allowed) |
-| `appsync/no-while` | Disallow `while` loops |
-| `appsync/no-do-while` | Disallow `do-while` loops |
-| `appsync/no-try` | Disallow `try`/`catch`/`finally` |
-| `appsync/no-throw` | Disallow `throw` |
-| `appsync/no-continue` | Disallow `continue` |
-| `appsync/no-labeled-statement` | Disallow labeled statements |
-| `appsync/no-new` | Disallow the `new` operator |
-| `appsync/no-generators` | Disallow generator functions |
-| `appsync/no-this` | Disallow `this` |
-| `appsync/no-update-operators` | Disallow `++` and `--` |
-| `appsync/no-bitwise-not` | Disallow bitwise NOT (`~`) |
-| `appsync/no-in-operator` | Disallow `in` (use `Object.hasOwn`) |
-| `appsync/no-function-arguments` | Disallow passing function references as call arguments (inline arrow callbacks are allowed) |
+| Rule                            | Description                                                                                      |
+| ------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `appsync/no-global-constructor` | Disallow global constructor calls (`String()`, `Number()`, `Boolean()`, `Date()`, etc.)          |
+| `appsync/no-async-await`        | Disallow `async`/`await` and async functions                                                     |
+| `appsync/no-classes`            | Disallow `class` declarations and expressions                                                    |
+| `appsync/no-instanceof`         | Disallow `instanceof`                                                                            |
+| `appsync/no-for-loop`           | Disallow C-style `for` loops (`for-in` / `for-of` allowed)                                       |
+| `appsync/no-while`              | Disallow `while` loops                                                                           |
+| `appsync/no-do-while`           | Disallow `do-while` loops                                                                        |
+| `appsync/no-try`                | Disallow `try`/`catch`/`finally`                                                                 |
+| `appsync/no-throw`              | Disallow `throw`                                                                                 |
+| `appsync/no-continue`           | Disallow `continue`                                                                              |
+| `appsync/no-labeled-statement`  | Disallow labeled statements                                                                      |
+| `appsync/no-new`                | Disallow the `new` operator                                                                      |
+| `appsync/no-generators`         | Disallow generator functions                                                                     |
+| `appsync/no-this`               | Disallow `this`                                                                                  |
+| `appsync/no-update-operators`   | Disallow `++` and `--`                                                                           |
+| `appsync/no-bitwise-not`        | Disallow bitwise NOT (`~`)                                                                       |
+| `appsync/no-in-operator`        | Disallow `in` (use `Object.hasOwn`)                                                              |
+| `appsync/no-function-arguments` | Disallow passing function references as call arguments (inline arrow callbacks are allowed)      |
+| `appsync/no-appsync-globals`    | Disallow AppSync-only globals (`util`, `extensions`, `runtime`) — opt-in, included in `portable` |
 
 ## Migration
 

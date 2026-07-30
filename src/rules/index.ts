@@ -1,3 +1,4 @@
+import noAppsyncGlobals from "./no-appsync-globals.js";
 import noAsyncAwait from "./no-async-await.js";
 import noBitwiseNot from "./no-bitwise-not.js";
 import noClasses from "./no-classes.js";
@@ -19,6 +20,7 @@ import noWhile from "./no-while.js";
 import type { AppsyncRuleModule } from "./types.js";
 
 const rules = {
+  "no-appsync-globals": noAppsyncGlobals,
   "no-async-await": noAsyncAwait,
   "no-bitwise-not": noBitwiseNot,
   "no-classes": noClasses,

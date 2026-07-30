@@ -17,7 +17,15 @@ Make sure the following rules are followed:
 - These operators are not allowed: `++`, `--`, `~`.
 - `in` operator is not supported. Use `Object.hasOwn` to check if the specified property is in the specified object.
 
+## Portable shared code
 
+Use the `portable` preset from `oxlint-appsync` for modules shared between AppSync resolvers and other runtimes (e.g. Lambda). It enables all syntax rules plus `no-appsync-globals`, which forbids references to AppSync-only globals:
+
+- `util` — encoding, IDs, errors, auth, time, and string helpers
+- `extensions` — AppSync extensions API
+- `runtime` — flow control such as `runtime.earlyReturn()`
+
+Resolver entry points should use `recommended` instead so `util.error()` and similar APIs remain available.
 
 ## Supported runtime features
 
@@ -34,11 +42,9 @@ Make sure the following rules are followed:
   - `void` and `typeof` operators.
   - Spread operators (`...`).
 - **Statements**: `const`, `let`, `var`, `break`, `else`, `for-in`, `for-of`, `if`, `return`, `switch`, spread syntax.
-- *Literals*: multi-line strings, expression interpolation, nesting templates.
+- _Literals_: multi-line strings, expression interpolation, nesting templates.
 - **Functions**: Function declarations, ES6 arrow functions, ES6 rest parameter syntax.
 - **Strict mode**: enabled by default, no need to specify `use_strict` explicitly.
-
-
 
 ### Primitive objects
 
@@ -61,8 +67,6 @@ Note: for `String.prototype.replace()` and `String.prototype.replaceAll()` - reg
   - Passing a function as an argument is not supported.
   - Recursive function calls are not supported.
 - **JSON**: `JSON.parse()` (returns a blank string if the parsed string is not valid JSON), `JSON.stringify()`.
-
-
 
 ### Globals
 
