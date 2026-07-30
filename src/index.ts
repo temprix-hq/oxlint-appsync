@@ -1,4 +1,4 @@
-import { plugin, recommended } from "./plugin.js";
+import { plugin, portable, recommended } from "./plugin.js";
 
-export { plugin, recommended };
+export { plugin, portable, recommended };
 export default plugin;
