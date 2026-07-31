@@ -71,29 +71,48 @@ export default [
 
 ## Rules
 
-| Rule                            | Description                                                                                                                                                        |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `appsync/no-global-constructor` | Disallow global constructor calls (`String()`, `Number()`, `Boolean()`, `Date()`, etc.)                                                                            |
-| `appsync/no-async-await`        | Disallow `async`/`await` and async functions                                                                                                                       |
-| `appsync/no-classes`            | Disallow `class` declarations and expressions                                                                                                                      |
-| `appsync/no-instanceof`         | Disallow `instanceof`                                                                                                                                              |
-| `appsync/no-for-loop`           | Disallow C-style `for` loops (`for-in` / `for-of` allowed)                                                                                                         |
-| `appsync/no-while`              | Disallow `while` loops                                                                                                                                             |
-| `appsync/no-do-while`           | Disallow `do-while` loops                                                                                                                                          |
-| `appsync/no-try`                | Disallow `try`/`catch`/`finally`                                                                                                                                   |
-| `appsync/no-throw`              | Disallow `throw`                                                                                                                                                   |
-| `appsync/no-continue`           | Disallow `continue`                                                                                                                                                |
-| `appsync/no-labeled-statement`  | Disallow labeled statements                                                                                                                                        |
-| `appsync/no-new`                | Disallow the `new` operator                                                                                                                                        |
-| `appsync/no-generators`         | Disallow generator functions                                                                                                                                       |
-| `appsync/no-this`               | Disallow `this`                                                                                                                                                    |
-| `appsync/no-update-operators`   | Disallow `++` and `--`                                                                                                                                             |
-| `appsync/no-bitwise-not`        | Disallow bitwise NOT (`~`)                                                                                                                                         |
-| `appsync/no-in-operator`        | Disallow `in` (use `Object.hasOwn`)                                                                                                                                |
-| `appsync/no-function-arguments` | Disallow passing functions as call arguments (parity with AWS `no-function-passing`; inline arrows allowed only on allowlisted Array methods like `map`, `filter`) |
-| `appsync/no-appsync-globals`    | Disallow AppSync-only globals (`util`, `extensions`, `runtime`) — opt-in, included in `portable`                                                                   |
+| Rule                              | Description                                                                                                                                                        |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `appsync/no-global-constructor`   | Disallow global constructor calls (`String()`, `Number()`, `Boolean()`, `Date()`, etc.)                                                                            |
+| `appsync/no-async-await`          | Disallow `async`/`await` and async functions                                                                                                                       |
+| `appsync/no-classes`              | Disallow `class` declarations and expressions                                                                                                                      |
+| `appsync/no-context-reassignment` | Disallow reassigning `context` and its base properties                                                                                                             |
+| `appsync/no-instanceof`           | Disallow `instanceof`                                                                                                                                              |
+| `appsync/no-for-loop`             | Disallow C-style `for` loops (`for-in` / `for-of` allowed)                                                                                                         |
+| `appsync/no-while`                | Disallow `while` loops                                                                                                                                             |
+| `appsync/no-do-while`             | Disallow `do-while` loops                                                                                                                                          |
+| `appsync/no-disallowed-methods`   | Disallow unsupported methods (`call`, `apply`, `bind`)                                                                                                             |
+| `appsync/no-try`                  | Disallow `try`/`catch`/`finally`                                                                                                                                   |
+| `appsync/no-throw`                | Disallow `throw`                                                                                                                                                   |
+| `appsync/no-continue`             | Disallow `continue`                                                                                                                                                |
+| `appsync/no-labeled-statement`    | Disallow labeled statements                                                                                                                                        |
+| `appsync/no-new`                  | Disallow the `new` operator                                                                                                                                        |
+| `appsync/no-regex`                | Disallow regex literals (`/pattern/`)                                                                                                                              |
+| `appsync/no-promise`              | Disallow `Promise` usage                                                                                                                                           |
+| `appsync/no-recursion`            | Disallow recursive function calls                                                                                                                                  |
+| `appsync/no-generators`           | Disallow generator functions                                                                                                                                       |
+| `appsync/no-this`                 | Disallow `this`                                                                                                                                                    |
+| `appsync/no-update-operators`     | Disallow `++` and `--`                                                                                                                                             |
+| `appsync/no-bitwise-not`          | Disallow bitwise NOT (`~`)                                                                                                                                         |
+| `appsync/no-in-operator`          | Disallow `in` (use `Object.hasOwn`)                                                                                                                                |
+| `appsync/no-function-arguments`   | Disallow passing functions as call arguments (parity with AWS `no-function-passing`; inline arrows allowed only on allowlisted Array methods like `map`, `filter`) |
+| `appsync/no-function-reassign`    | Disallow reassigning function variables                                                                                                                            |
+| `appsync/no-function-return`      | Disallow returning functions from functions                                                                                                                        |
+| `appsync/no-appsync-globals`      | Disallow AppSync-only globals (`util`, `extensions`, `runtime`) — opt-in, included in `portable`                                                                   |
 
 ## Migration
+
+### 0.3.1 → 0.4.0
+
+Seven new rules are enabled in the `recommended` and `portable` presets for parity with `@aws-appsync/eslint-plugin`:
+
+- `appsync/no-regex` — regex literals (`/pattern/`) are not supported; use string patterns for `replace`, `split`, etc.
+- `appsync/no-promise` — `Promise` usage is not supported.
+- `appsync/no-context-reassignment` — reassigning `context` or its base properties is not supported.
+- `appsync/no-disallowed-methods` — `call`, `apply`, and `bind` are not supported.
+- `appsync/no-recursion` — recursive function calls are not supported.
+- `appsync/no-function-reassign` — reassigning function variables is not supported.
+- `appsync/no-function-return` — returning functions from functions is not supported.
 
 ### 0.3.0 → 0.3.1
 

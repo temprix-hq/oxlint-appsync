@@ -1,5 +1,5 @@
-import { defineAppsyncRule } from "./types.js";
-import { reportDefault } from "./utils.js";
+import { defineAppsyncRule } from "../lib/rule-types.js";
+import { reportDefault } from "../lib/utils.js";
 
 export default defineAppsyncRule({
   meta: {

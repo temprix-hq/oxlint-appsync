@@ -5,7 +5,6 @@ runAppsyncRuleTests("no-async-await", rule, {
   valid: [
     "function load() { return 1; }",
     "const load = () => 1;",
-    "const value = Promise.resolve(1);",
   ],
   invalid: [
     {

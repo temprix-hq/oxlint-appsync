@@ -1,6 +1,6 @@
 import type { Context, ESTree, Scope } from "@oxlint/plugins";
-import { APPSYNC_GLOBAL_NAMES } from "./appsync-globals.js";
-import { defineAppsyncRule } from "./types.js";
+import { APPSYNC_GLOBAL_NAMES } from "../lib/appsync-globals.js";
+import { defineAppsyncRule } from "../lib/rule-types.js";
 
 function isBindingPosition(node: ESTree.Node): boolean {
   const parent = node.parent;

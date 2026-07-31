@@ -1,64 +1,22 @@
-import type { Context, Definition, ESTree, Scope } from "@oxlint/plugins";
-import { defineAppsyncRule } from "./types.js";
-import { reportDefault } from "./utils.js";
-
-const CALLBACK_ACCEPTING_METHODS = new Set([
-  "map",
-  "find",
-  "filter",
-  "findIndex",
-  "findLast",
-  "findLastIndex",
-  "forEach",
-  "reduce",
-  "reduceRight",
-  "every",
-  "some",
-  "flatMap",
-]);
-
-function getMemberPropertyName(
-  property: ESTree.Node & { type: string },
-): string | null {
-  if (property.type === "Identifier") {
-    return (property as unknown as { name: string }).name;
-  }
-
-  if (property.type === "Literal" && typeof property.value === "string") {
-    return property.value;
-  }
-
-  return null;
-}
+import type { Context, ESTree, Scope } from "@oxlint/plugins";
+import { CALLBACK_ACCEPTING_METHODS } from "../lib/callback-accepting-methods.js";
+import {
+    definitionCreatesFunction,
+    getMemberPropertyName,
+} from "../lib/function-utils.js";
+import { defineAppsyncRule } from "../lib/rule-types.js";
+import { reportDefault } from "../lib/utils.js";
 
 function isCallbackAcceptingCall(callee: ESTree.Node): boolean {
   if (callee.type !== "MemberExpression") {
     return false;
   }
 
-  const member = callee as ESTree.StaticMemberExpression | ESTree.ComputedMemberExpression;
+  const member = callee as
+    | ESTree.StaticMemberExpression
+    | ESTree.ComputedMemberExpression;
   const propertyName = getMemberPropertyName(member.property);
   return propertyName !== null && CALLBACK_ACCEPTING_METHODS.has(propertyName);
-}
-
-function definitionCreatesFunction(def: Definition): boolean {
-  if (def.type === "FunctionName") {
-    return true;
-  }
-
-  if (def.type === "Variable" && def.node.type === "VariableDeclarator") {
-    const init = def.node.init;
-    if (!init) {
-      return false;
-    }
-
-    return (
-      init.type === "FunctionExpression" ||
-      init.type === "ArrowFunctionExpression"
-    );
-  }
-
-  return false;
 }
 
 function isFunctionLikeArgument(node: ESTree.Node, context: Context): boolean {
@@ -79,7 +37,7 @@ function isFunctionLikeArgument(node: ESTree.Node, context: Context): boolean {
     if (variable?.defs.some(definitionCreatesFunction)) {
       return true;
     }
-    scope = scope.upper;
+    scope = scope.upper ?? null;
   }
 
   return false;

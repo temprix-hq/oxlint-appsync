@@ -1,6 +1,18 @@
 // Fixture that exercises every AppSync runtime restriction.
-export function handler() {
+export function handler(context) {
+  context.args = {};
   const value = Number(42);
+  Promise.resolve(1);
+  function recurse() {
+    recurse();
+  }
+  recurse();
+  let fn = () => 1;
+  fn = () => 2;
+  function getFn() {
+    return () => 1;
+  }
+  fn.bind(null);
   async function load() {
     await Promise.resolve(1);
   }
@@ -34,5 +46,6 @@ export function handler() {
   const project = (item) => item;
   [ 1 ].map(project);
   [ { releasedAt: 1 } ].sort((left, right) => left.releasedAt - right.releasedAt);
-  return { value, load, Example, isArray, created, gen, self, count, inverted, hasKey };
+  const parts = "SET a REMOVE b".split(/\s+REMOVE\s+/);
+  return { value, load, Example, isArray, created, gen, self, count, inverted, hasKey, parts };
 }
