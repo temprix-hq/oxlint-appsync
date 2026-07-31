@@ -6,6 +6,19 @@ runAppsyncRuleTests("no-function-return", rule, {
     "function load() { return 1; }",
     "function load() { return value; }",
     "const project = (item) => item; [1].map(project);",
+    `export function request(ctx) {
+      return buildRequest(ctx);
+    }
+    function buildRequest(ctx) {
+      const request = { operation: "TransactWriteItems", transactItems: [] };
+      return request;
+    }`,
+    `export function request(ctx) {
+      {
+        const request = { operation: "GetItem" };
+        return request;
+      }
+    }`,
   ],
   invalid: [
     {

@@ -5,6 +5,12 @@ runAppsyncRuleTests("no-function-reassign", rule, {
   valid: [
     "let count = 0; count = 1;",
     "function load() { return 1; }",
+    `function request(ctx) {
+      function inner() {
+        let request = {};
+        request = { operation: "GetItem" };
+      }
+    }`,
   ],
   invalid: [
     {
