@@ -76,8 +76,8 @@ export function variableHoldsFunction(
   let scope: Scope | null = context.sourceCode.getScope(referenceNode);
   while (scope) {
     const variable = scope.set.get(name);
-    if (variable?.defs.some(definitionCreatesFunction)) {
-      return true;
+    if (variable) {
+      return variable.defs.some(definitionCreatesFunction);
     }
     scope = scope.upper;
   }
