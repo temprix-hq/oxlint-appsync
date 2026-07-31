@@ -1,7 +1,7 @@
 import { eslintCompatPlugin } from "@oxlint/plugins";
 import { RuleTester } from "eslint";
 import { describe, it } from "vitest";
-import type { AppsyncRuleModule } from "../../src/rules/types.js";
+import type { AppsyncRuleModule } from "../../src/lib/rule-types.js";
 
 RuleTester.describe = describe;
 RuleTester.it = it;

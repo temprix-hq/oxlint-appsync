@@ -2,37 +2,51 @@ import noAppsyncGlobals from "./no-appsync-globals.js";
 import noAsyncAwait from "./no-async-await.js";
 import noBitwiseNot from "./no-bitwise-not.js";
 import noClasses from "./no-classes.js";
+import noContextReassignment from "./no-context-reassignment.js";
 import noContinue from "./no-continue.js";
+import noDisallowedMethods from "./no-disallowed-methods.js";
 import noDoWhile from "./no-do-while.js";
 import noForLoop from "./no-for-loop.js";
 import noFunctionArguments from "./no-function-arguments.js";
+import noFunctionReassign from "./no-function-reassign.js";
+import noFunctionReturn from "./no-function-return.js";
 import noGenerators from "./no-generators.js";
 import noGlobalConstructor from "./no-global-constructor.js";
 import noInOperator from "./no-in-operator.js";
 import noInstanceof from "./no-instanceof.js";
 import noLabeledStatement from "./no-labeled-statement.js";
 import noNew from "./no-new.js";
+import noPromise from "./no-promise.js";
+import noRecursion from "./no-recursion.js";
+import noRegex from "./no-regex.js";
 import noThis from "./no-this.js";
 import noThrow from "./no-throw.js";
 import noTry from "./no-try.js";
 import noUpdateOperators from "./no-update-operators.js";
 import noWhile from "./no-while.js";
-import type { AppsyncRuleModule } from "./types.js";
+import type { AppsyncRuleModule } from "../lib/rule-types.js";
 
 const rules = {
   "no-appsync-globals": noAppsyncGlobals,
   "no-async-await": noAsyncAwait,
   "no-bitwise-not": noBitwiseNot,
   "no-classes": noClasses,
+  "no-context-reassignment": noContextReassignment,
   "no-continue": noContinue,
   "no-do-while": noDoWhile,
+  "no-disallowed-methods": noDisallowedMethods,
   "no-for-loop": noForLoop,
   "no-function-arguments": noFunctionArguments,
+  "no-function-reassign": noFunctionReassign,
+  "no-function-return": noFunctionReturn,
   "no-generators": noGenerators,
   "no-in-operator": noInOperator,
   "no-instanceof": noInstanceof,
   "no-labeled-statement": noLabeledStatement,
   "no-new": noNew,
+  "no-promise": noPromise,
+  "no-recursion": noRecursion,
+  "no-regex": noRegex,
   "no-global-constructor": noGlobalConstructor,
   "no-this": noThis,
   "no-throw": noThrow,

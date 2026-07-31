@@ -19,10 +19,10 @@ Cross-check new rules against the [AWS supported-features page](https://docs.aws
 | Path                               | Purpose                                                                                                |
 | ---------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | `src/plugin.ts`                    | Plugin export, `recommended` / `portable` presets, opt-in rule set                                     |
-| `src/rules/`                       | Individual rule implementations (`defineAppsyncRule`, `createOnce` listeners)                          |
+| `src/rules/`                       | Rule implementations (`no-*.ts`) and `index.ts` registry                                               |
 | `src/rules/index.ts`               | Rule registry — register every new rule here                                                           |
-| `src/rules/types.ts`               | `AppsyncRuleModule`, `defineAppsyncRule` helper                                                        |
-| `src/rules/utils.ts`               | Shared helpers (`reportDefault`, `isIdentifier`, …)                                                    |
+| `src/lib/`                         | Shared rule helpers, types, and constants (`rule-types`, `utils`, allowlists)                          |
+| `src/lib/rule-types.ts`            | `AppsyncRuleModule`, `defineAppsyncRule` helper                                                        |
 | `tests/rules/`                     | Per-rule tests via `runAppsyncRuleTests`                                                               |
 | `tests/helpers/rule-tester.ts`     | ESLint `RuleTester` bridge for Oxlint rules                                                            |
 | `tests/fixtures/sample-appsync.js` | Fixture exercised by the oxlint smoke test (ignored by root `.oxlintrc.json` — intentional violations) |
@@ -69,7 +69,7 @@ Run this once after all code changes are done (including tests and doc edits). R
 
 - **TypeScript:** `strict`, `verbatimModuleSyntax`, ESM. Local imports use `.js` extensions (e.g. `./types.js`).
 - **Rule shape:** `meta` (type, docs, messages, schema) + `createOnce(context)` returning an AST listener map. Match naming and structure of existing rules in `src/rules/`.
-- **Shared logic:** put reusable lists or helpers in sibling modules (e.g. `global-constructors.ts`, `appsync-globals.ts`) rather than duplicating across rules.
+- **Shared logic:** put reusable lists or helpers in `src/lib/` (e.g. `global-constructors.ts`, `function-utils.ts`) rather than duplicating across rules.
 - **Minimize scope:** one rule per AppSync restriction; avoid unrelated refactors in the same change.
 - **Comments:** only where behavior is non-obvious (allowlists, scope walking, AWS parity notes).
 
