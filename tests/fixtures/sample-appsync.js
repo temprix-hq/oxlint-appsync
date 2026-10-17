@@ -47,5 +47,8 @@ export function handler(context) {
   [ 1 ].map(project);
   [ { releasedAt: 1 } ].sort((left, right) => left.releasedAt - right.releasedAt);
   const parts = "SET a REMOVE b".split(/\s+REMOVE\s+/);
-  return { value, load, Example, isArray, created, gen, self, count, inverted, hasKey, parts };
+  function lookback(today = utcPlainDateToday()) {
+    return today;
+  }
+  return { value, load, Example, isArray, created, gen, self, count, inverted, hasKey, parts, lookback };
 }
