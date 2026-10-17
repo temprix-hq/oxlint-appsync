@@ -17,6 +17,7 @@
     "appsync/no-instanceof": "error",
     "appsync/no-labeled-statement": "error",
     "appsync/no-new": "error",
+    "appsync/no-non-literal-default": "error",
     "appsync/no-promise": "error",
     "appsync/no-recursion": "error",
     "appsync/no-regex": "error",

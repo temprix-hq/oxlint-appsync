@@ -98,6 +98,7 @@ export default [
 | `appsync/no-function-arguments`   | Disallow passing functions as call arguments (parity with AWS `no-function-passing`; inline arrows allowed only on allowlisted Array methods like `map`, `filter`) |
 | `appsync/no-function-reassign`    | Disallow reassigning function variables                                                                                                                            |
 | `appsync/no-function-return`      | Disallow returning functions from functions                                                                                                                        |
+| `appsync/no-non-literal-default`  | Disallow non-literal default parameters (AppSync ignores them; pass the value at the call site)                                                                    |
 | `appsync/no-appsync-globals`      | Disallow AppSync-only globals (`util`, `extensions`, `runtime`) — opt-in, included in `portable`                                                                   |
 
 ## Migration

@@ -16,6 +16,7 @@ import noInOperator from "./no-in-operator.js";
 import noInstanceof from "./no-instanceof.js";
 import noLabeledStatement from "./no-labeled-statement.js";
 import noNew from "./no-new.js";
+import noNonLiteralDefault from "./no-non-literal-default.js";
 import noPromise from "./no-promise.js";
 import noRecursion from "./no-recursion.js";
 import noRegex from "./no-regex.js";
@@ -44,6 +45,7 @@ const rules = {
   "no-instanceof": noInstanceof,
   "no-labeled-statement": noLabeledStatement,
   "no-new": noNew,
+  "no-non-literal-default": noNonLiteralDefault,
   "no-promise": noPromise,
   "no-recursion": noRecursion,
   "no-regex": noRegex,
