@@ -103,6 +103,10 @@ export default [
 
 ## Migration
 
+### 0.4.1 → 0.5.0
+
+`appsync/no-non-literal-default` is enabled in the `recommended` and `portable` presets. AppSync ignores default-parameter initializers that are not literals, so a call that omits the argument receives `undefined`. Pass the value at the call site, or use a literal default.
+
 ### 0.3.1 → 0.4.0
 
 Seven new rules are enabled in the `recommended` and `portable` presets for parity with `@aws-appsync/eslint-plugin`:
